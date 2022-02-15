@@ -1,0 +1,80 @@
+﻿@page "/thongtin"
+@inject R4CloThes.Client.Helpers.IAPIHelper _apiHelper
+@inject R4CloThes.Client.Helpers.IUploadImage _uploadImage
+@inject ILocalStorageService localStorage
+@inject NavigationManager nav
+@inject ISnackbar _snachBar
+
+<div style="max-width: 600px;">
+    <EditForm Model="@kh" OnValidSubmit="OnValidSubmit">
+        <DataAnnotationsValidator />
+        <MudCard>
+            <MudGrid>
+                <MudItem>
+                    <MudCardContent>
+                        <MudGrid>
+                            <MudItem xs="12" sm="6">
+                                <MudContainer>
+                                    <MudPaper Class="pa-5 ma-2"><img src="@image"></MudPaper>
+                                    <InputFile id="fileInput" OnChange="UploadFiles" hidden />
+
+                                    <MudButton HtmlTag="label"
+                                               Variant="Variant.Filled"
+                                               Color="Color.Primary"
+                                               Size="MudBlazor.Size.Small"
+                                               StartIcon="@Icons.Filled.CloudUpload"
+                                               Disabled="@isLoading"
+                                               for="fileInput"
+                                               Class="m-2 text-white">
+                                        @if (isLoading)
+                                        {
+                                            <MudProgressCircular Class="ms-n1" Size="MudBlazor.Size.Small" Indeterminate="true" />
+                                            <MudText Class="ms-2 text-white">Xử lý</MudText>
+                                        }
+                                        else
+                                        {
+                                            <MudText Class="text-white">Upload</MudText>
+                                        }
+                                    </MudButton>
+                                </MudContainer>
+                            </MudItem>
+                            <MudItem xs="12" sm="6">
+                                <MudItem xs="12" sm="12">
+                                    <MudTextField Label="Họ Tên Khách Hàng" Class="mt-3"
+                                                  @bind-Value="kh.Tenkhachhang" For="@(() => kh.Tenkhachhang)" />
+                                </MudItem>
+                                <MudItem xs="12" sm="12">
+                                    <MudTextField Label="Email" Class="mt-3"
+                                                  @bind-Value="kh.Email" For="@(() => kh.Email)" />
+                                </MudItem>
+                            </MudItem>
+                        </MudGrid>
+                        <MudGrid>
+                            <MudItem xs="12" sm="6">
+                                <MudRadioGroup Label="Giới tính" @bind-SelectedOption="sex">
+                                    <MudRadio Option="0" Color="Color.Primary" Dense="true">Nam</MudRadio>
+                                    <MudRadio Option="1" Color="Color.Secondary" Dense="false">Nữ</MudRadio>
+                                </MudRadioGroup>
+                            </MudItem>
+                            <MudItem xs="12" sm="6">
+                                <MudItem xs="12">
+                                    <MudDatePicker Label="Ngày Sinh" @bind-Date="kh.Ngaysinh" ReadOnly="true" />
+                                </MudItem>
+                            </MudItem>
+                        </MudGrid>
+                        <MudTextField Label="Địa Chỉ" Class="mt-3"
+                                      @bind-Value="kh.Diachi" For="@(() => kh.Diachi)" />
+                        <MudTextField Label="Số Điện Thoại" Class="mt-3"
+                                      @bind-Value="kh.Sodienthoai" For="@(() => kh.Sodienthoai)" />
+                        <MudGrid>
+                            <MudItem>
+                                <MudButton Color="Color.Info" Variant="Variant.Filled" OnClick="edit">Chỉnh sửa</MudButton>
+                            </MudItem>
+                        </MudGrid>
+                    </MudCardContent>
+                </MudItem>
+            </MudGrid>
+        </MudCard>
+    </EditForm>
+</div>
+

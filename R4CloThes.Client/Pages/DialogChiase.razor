@@ -1,0 +1,52 @@
+﻿@using R4CloThes.Client.Models
+
+<MudDialog>
+    <DialogContent>
+        <MudGrid>
+            <MudItem xs="6"><img src="https://res.cloudinary.com/r4clothes/image/upload/@sanpham.Hinh" alt="Alternate Text" /></MudItem>
+            <MudItem xs="6">
+                <MudItem xs="12">Tên sản phẩm: @sanpham.Tensanpham</MudItem>
+                <MudItem xs="12">Giá: @sanpham.Gia</MudItem>
+                <MudItem xs="12">Loại sản phẩm: @sanpham.LoaiSanPhams</MudItem>
+                <MudItem xs="12">Link sản phẩm: @url</MudItem>
+                <MudItem xs="12"><MudTextField @bind-Value="email" Variant="Variant.Filled" Label="Email người nhận"></MudTextField></MudItem>
+            </MudItem>
+        </MudGrid>
+    </DialogContent>
+    <DialogActions>
+        <MudButton OnClick="Cancel">Cancel</MudButton>
+        <MudButton Color="Color.Primary" OnClick="Submit">Ok</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; }
+    private string url = null;
+    [Inject] public NavigationManager nav { get; set; }
+    [Inject] public ILocalStorageService localStorage { get; set; }
+    [Inject] public IAPIHelper _apiHelper { get; set; }
+    public string email { get; set; }
+    public SanPhamViewModel sanpham = null;
+    public ChiaSe chiase = null;
+    public string id = null;
+    public string token = null;
+
+    protected override async Task OnInitializedAsync()
+    {
+        url = nav.Uri;
+        sanpham = await localStorage.GetItemAsync<SanPhamViewModel>("sanpham");
+        id = await localStorage.GetItemAsync<string>("khachhangid");
+        token = await localStorage.GetItemAsync<string>("token");
+    }
+
+    private async Task Submit()
+    {
+        chiase.MaKhachHang = int.Parse(id);
+        chiase.EmailNguoiNhan = email;
+        chiase.HoTen = "aa";
+        chiase.LinkSP = url;
+        chiase.ThoiGian = DateTime.Now;
+        chiase.MaSanPham = sanpham.Masanpham;
+        var res = await _apiHelper.PostRequestAsync("sanphams/chiase", chiase, token);
+    }
+    void Cancel() => MudDialog.Cancel();
+}

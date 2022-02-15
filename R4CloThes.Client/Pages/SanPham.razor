@@ -1,0 +1,56 @@
+﻿@page "/sanpham"
+
+@if (dssp == null)
+{
+    <p>Loading ...</p>
+}
+else
+{
+<div class="col-9 mt-30">
+    <div class="m-sm-auto">
+        <div class="d-inline-flex ml-30">
+            <MudGrid>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudSelect T="string" Label="Loại sản phẩm" AnchorOrigin="Origin.BottomCenter" Margin="Margin.None" @bind-Value="loaisp">
+                        <MudSelectItem Value="@("5")">Quần jean</MudSelectItem>
+                        <MudSelectItem Value="@("4")">Quần Chinos</MudSelectItem>
+                        <MudSelectItem Value="@("6")">Quần short</MudSelectItem>
+                        <MudSelectItem Value="@("10")">Quần tây</MudSelectItem>
+                        <MudSelectItem Value="@("11")">Quần jogger</MudSelectItem>
+                        <MudSelectItem Value="@("12")">Quần kaki</MudSelectItem>
+                        <MudSelectItem Value="@("13")">Quần Baggy</MudSelectItem>
+                        <MudSelectItem Value="@("16")">Quần suông Trouser</MudSelectItem>
+                    </MudSelect>
+                <MudButton OnClick="LocLoaiSanPham" Variant="Variant.Filled" Color="Color.Info">Lọc</MudButton>
+                </MudItem>
+                <MudItem xs="12" sm="6" md="6">
+                    <MudSelect T="string" Label="Giảm giá" AnchorOrigin="Origin.BottomCenter" @bind-Value="giamgia">
+                        <MudSelectItem Value="@("50")">50%</MudSelectItem>
+                        <MudSelectItem Value="@("30")">30%</MudSelectItem>
+                        <MudSelectItem Value="@("10")">10%</MudSelectItem>
+                </MudSelect>
+                <MudButton OnClick="LocGiamGia" Variant="Variant.Filled" Color="Color.Info">Lọc</MudButton>
+                </MudItem>
+            </MudGrid>
+        </div>
+        <div class="d-inline-flex ml-30 ">
+            <div class="card-group">
+                @for (int i = 0; i < dssp.Count; i++)
+                {
+                    <div class="single-products-catagory clearfix">
+                        <a href="/chitietsanpham/@dssp[i].Masanpham">
+                            <img src="https://res.cloudinary.com/r4clothes/image/upload/@dssp[i].Hinh" alt="productImg">
+                            <!-- Hover Content -->
+                            <div class="hover-content">
+                                <div class="line"></div>
+                                <p>Giá: @dssp[i].Gia</p>
+                                <h4>@dssp[i].Tensanpham</h4>
+                            </div>
+                        </a>
+                    </div>
+                }
+            </div>
+        </div>
+        </div>
+    </div>
+}

@@ -1,0 +1,91 @@
+﻿@page "/Dangky"
+@inject IAPIHelper _apiHelper
+@inject ISnackbar _snackBar
+
+<style>
+    
+.login-block{
+  /* fallback for old browsers */
+background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);  /* Chrome 10-25, Safari 5.1-6 */
+float:left;
+width:100%;
+padding : 50px 0;
+}
+    .banner-sec {
+        background: url(https://i.bloganchoi.com/bloganchoi.com/wp-content/uploads/2020/09/hinh-nen-dien-thoai-dep-moi-nhat-63.jpg?fit=564%2C20000&quality=95&ssl=1) no-repeat left bottom;
+        background-size: cover;
+        min-height: 500px;
+        border-radius: 0 10px 10px 0;
+        padding: 0;
+    }
+.set{background:#fff; border-radius: 10px; box-shadow:15px 20px 0px rgba(0,0,0,0.1);}
+.carousel-inner{border-radius:0 10px 10px 0;}
+.carousel-caption{text-align:left; left:5%;}
+.login-sec{padding: 50px 30px; position:relative;}
+.login-sec .copy-text{position:absolute; width:80%; bottom:20px; font-size:13px; text-align:center;}
+.login-sec .copy-text i{color:#FEB58A;}
+.login-sec .copy-text a{color:#E36262;}
+.login-sec h2{margin-bottom:30px; font-weight:800; font-size:30px; color: #000000;}
+.login-sec h2:after{content:" "; width:100px; height:5px; background:#000000; display:block; margin-top:20px; border-radius:3px; margin-left:auto;margin-right:auto}
+    .btn-login {
+        background: #ce642e;
+        color: #fff;
+        font-weight: 600;
+        border-radius: 50px;
+    }
+.banner-text{width:70%; position:absolute; bottom:40px; padding-left:20px;}
+.banner-text h2{color:#fff; font-weight:600;}
+.banner-text h2:after{content:" "; width:100px; height:5px; background:#FFF; display:block; margin-top:20px; border-radius:3px;}
+.banner-text p{color:#fff;}
+</style>
+<div class="cart-table-area mt-50">
+    <section class="login-block">
+        <div class="set">
+            <div class="row">
+                <div class="col-md-4 login-sec">
+                    <h2 class="text-center">Đăng Ký</h2>
+                    <div class="login-form">
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-uppercase">Họ và tên</label>
+                            <input type="text" class="form-control" @bind="@khachhang.Tenkhachhang" placeholder="">
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputEmail1" class="text-uppercase">Email</label>
+                            <input type="text" class="form-control" placeholder="" @bind="@khachhang.Email">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Số điện thoại</label>
+                            <input class="form-control" @bind="@khachhang.Sodienthoai" type="password" />
+                        </div>
+                        <div class="form-check">
+                                <MudDatePicker Label="Ngay sinh" Editable="true" @bind-Date="date" Placeholder="Select Date" />
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleInputPassword1" class="text-uppercase">Mật khẩu</label>
+                            <input type="password" class="form-control" placeholder="" @bind="@khachhang.Matkhau">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Nhập lại mật khẩu</label>
+                            <input class="form-control" @bind="@confirmpwd" type="password" />
+                        </div>
+                        <div class="form-check">
+                            <button class="btn btn-login float-right" @onclick="@Regis">Đăng Ký</button>
+                        </div>
+                        <div class="form-check">
+
+                        </div>
+                        <h6 class="text-danger">@info</h6>
+                    </div>
+                </div>
+                <div class="col-md-8 banner-sec">
+                    <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                        <div class="carousel-inner" role="listbox">
+                            <div class="carousel-item active">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
